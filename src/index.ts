@@ -2,7 +2,8 @@ import { Client, GatewayIntentBits } from 'discord.js';
 import { config } from 'dotenv';
 
 import { processTwitterLink } from './fxtwitter';
-import { isTwitterLink } from './utils';
+import { processInstagamLink } from './instadownload';
+import { isInstagramLink, isTwitterLink } from './utils';
 
 config();
 
@@ -25,6 +26,12 @@ client.on('messageCreate', message => {
   if (!message.author.bot) {
     if (isTwitterLink(message.content)) {
       processTwitterLink(message);
+      return
+    }
+
+    if (isInstagramLink(message.content)) {
+      processInstagamLink(message);
+      return
     }
   }
 });
